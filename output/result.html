@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bootstrap 5 - Blog Cards</title>
+  <!-- Aggiungi il link al CSS di Bootstrap -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-vzFZfr2e/Ge1E7Weu8zoGYMDV7dCtYzz1t7XXTcTqL9X51FYBYoByTdybWw8oENlVgY1YJiHtS2/Z8LgEuIzow==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    
+    /* Personalizza lo stile delle reazioni */
+    .reaction-btn {
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      border: none;
+      margin-left: 5px;
+      font-size: 1.5rem;
+    }
+    .display-3 {
+    background: linear-gradient(to right, rgb(101,67,33), rgb(0,0,0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+      font-size: 45px;
+  }
+    
+    .reaction-btn:hover {
+      cursor: pointer;
+    }
+    /* Personalizza lo stile del titolo della card */
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    body {
+    
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-image: url('https://cdn.shopify.com/s/files/1/0108/8225/2863/products/shopify_59ecb8cc-498b-4171-8368-6ab78e2f36b1.jpg?v=1669844825');
+			background-size: cover;
+			background-repeat: no-repeat;
+			
+  }
+    
+.card {
+  background: url('https://i.pinimg.com/736x/95/c5/3b/95c53bc8bca1b498eb98fd95782f38d8.jpg') no-repeat;
+ background-size:100%; 
+  border-radius:5px;
+  border: solid black 2px;
+  float: left;
+  padding: 11px;
+  
+ 
+
+}
+  .button-home {
+  background: rgb(101,67,33);
+  border: 1px solid rgb(101,67,33);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+    
+}
+   
+
+
+.button-home:hover,
+.button-home:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: white;
+}
+
+.button-home:active {
+  opacity: .5;
+}
+
+</style>
+  <body class="bg-light" onload='onFunction()'>
+    <br>
+  <h1 class="display-3 text-center ">Esposizione Galleria Post-it:</h1>
+    
+      <a class="button-home" role="button" href = "https://Post-it.deiaco.repl.co">Torna alla Home</a> <hr>
+
+    
+  </body>
+  <script>
+
+    function onFunction() {
+  fetch('data/data.json')
+    .then(response => response.json())
+    .then(data => {
+      const container = document.createElement('div');
+      container.classList.add('container-fluid' );
+     
+
+      const row = document.createElement('div');
+      row.classList.add('row');
+      row.style.padding = '5px';
+      
+         data.forEach(obj=> {
+        const card = document.createElement('div');
+        card.classList.add('card', 'text-white', 'bg-info'); 
+        card.style.width = '250px';
+        card.style.height = '130px';
+        card.style.marginBottom = '10px'; 
+        card.style.marginLeft = '100px';
+           card.bordereRadius = '5px';
+           card.border='solid black 1px';
+
+        const reaction = document.createElement('button');
+        reaction.classList.add('bg-white'); 
+        reaction.style.border = 'solid black 1px';
+        reaction.style.top = '90px';
+        reaction.style.right = '45px';
+        reaction.style.width = '35px';
+        reaction.style.height = '35px';
+        reaction.style.borderRadius = '5px';
+        reaction.textContent = '👍';
+
+           const reaction1 = document.createElement('button');
+        reaction1.classList.add('bg-white'); 
+        reaction1.style.padding = '1px';
+        reaction1.style.border = 'solid black 1px';
+        reaction1.style.top = '90px';
+        reaction1.style.right = '6px';
+        reaction1.style.width = '35px';
+        reaction1.style.height = '35px';
+        reaction1.style.borderRadius = '5px';
+        reaction1.textContent = '❤';
+
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        const cardTitle = document.createElement('h5');
+        cardTitle.classList.add('card-title');
+        cardTitle.textContent = obj.nickname;
+
+        const cardComment = document.createElement('p');
+        cardComment.classList.add('card-text');
+        cardComment.textContent = obj.commento;
+
+         if(obj.nickname != "" && obj.commento != ""){
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardComment);
+        card.appendChild(cardBody);
+        card.appendChild(reaction);
+        card.appendChild(reaction1);
+        row.appendChild(card);
+
+         }
+      });
+      
+
+      container.appendChild(row);
+      document.querySelector('body').appendChild(container);
+    })
+    .catch(error => console.error('Error loading data:', error));
+}
+
+
+
+
+
+  </script>
+</html>
+
+
